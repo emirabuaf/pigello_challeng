@@ -17,7 +17,7 @@ It is fine to use another API that can be used to represent our actual solar sys
 
 ## Practical description
 
-- This project should be completed using React accompanied with whatever libraries that seems fitting for the scope of the project. Just remember that it's _your_ code that is being assessed, not the libraries.
+- This project should be completed using React accompanied with whatever libraries that seems fitting for the scope of the project. Just remember that it's **your** code that is being assessed, not the libraries.
 - This repo can be used as a starting point.
 - The structure of this project should be thought through to allow for easy understanding and expansion of the project.
 - We will look at several different aspects of the project when assesing it: UX, UI, structure, readability and functionality.
@@ -28,7 +28,7 @@ It is fine to use another API that can be used to represent our actual solar sys
 
 1. Clone this repo
 2. Finish the test in your own time
-3. Upload it to Github and share it with us.
+3. Upload it to Github and share it with us (Usernames: appzter and/or toranderr).
 4. We'll get back to you for a quick discussion about the project
 
 ### Good luck!
