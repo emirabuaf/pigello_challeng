@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled, { ThemeProvider as SCTheme } from "styled-components";
+import { ThemeProvider as SCTheme } from "styled-components";
 
 import {
   constants as exampleConstants,
@@ -8,33 +8,51 @@ import {
 } from "./store/storeExample";
 import theme from "./theme";
 
-import Card from "./components/Card"
-import { CardWrapper } from "./components/styles/Card.styled";
+import Header from "./components/Header";
 import GlobalStyles from "./components/styles/Global";
+import CardList from "./components/CardList";
 
 
 function App() {
   const dispatch = useDispatch();
 
-  const solarData = useSelector((state) => state[exampleConstants.STORE_NAME].solarList.bodies)
+
+  const solarData = useSelector((state) => state[exampleConstants.STORE_NAME].solarList)
   const error = useSelector((state) => state[exampleConstants.STORE_NAME].error)
+  const selectedCategory = useSelector((state) => state[exampleConstants.STORE_NAME].selectedCategory)
+  const [list, setList] = useState(solarData)
+  const [sortOrder, setSortOrder] = useState('');
+
 
   useEffect(() => {
     dispatch(fetchSolarData())
   }, [dispatch])
 
 
+  useEffect(() => {
+    setList(solarData)
+  }, [solarData]);
+
+
+  const comparator = (order) => {
+    return function (a, b) {
+      return order === 'asc' ? b.englishName.localeCompare(a.englishName) : a.englishName.localeCompare(b.englishName);
+    }
+  }
+
+  const handleSort = () => {
+    setList(list.sort(comparator(sortOrder)));
+    setSortOrder(item => item === 'asc' ? 'desc' : 'asc');
+  }
+
 
   return (
     <SCTheme theme={theme}>
       <>
         <GlobalStyles />
+        <Header handleSort={handleSort} list={list} />
         {error ? <div>Something went wrong!!!</div> : (
-          <CardWrapper>
-            {solarData && solarData.map((item) => (
-              <Card item={item} key={item.id} />
-            ))}
-          </CardWrapper>
+          <CardList list={list} selectedCategory={selectedCategory} />
         )}
       </>
     </SCTheme>

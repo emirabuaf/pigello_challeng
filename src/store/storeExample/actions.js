@@ -13,3 +13,10 @@ export function fetchSolarData() {
 
   };
 }
+
+export function selectCategory(value) {
+  return {
+    type: constants.SELECT_CATEGORY,
+    payload: { value }
+  }
+}

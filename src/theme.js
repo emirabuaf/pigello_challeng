@@ -37,6 +37,7 @@ const theme = {
     data: 500,
     body: 400,
   },
+  mobile: '768px',
 };
 
 export default theme;

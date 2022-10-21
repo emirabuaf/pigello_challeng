@@ -7,8 +7,8 @@ const GlobalStyles = createGlobalStyle`
 }
 body {
  font-family: 'Poppins', sans-serif;
- color: hsl(192, 100%, 9%);
- font-size: 1.15em;
+ color: ${({ theme }) => theme.colors.black};
+ font-size: ${({ theme }) => theme.fontSizes.body};
  margin: 0;
 }
 h3{

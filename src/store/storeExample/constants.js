@@ -1,6 +1,7 @@
 export default {
   FETCH_SOLAR_DATA: "FETCH_SOLAR_DATA",
   SHOW_ERROR: "SHOW_ERROR",
+  SELECT_CATEGORY: "SELECT_CATEGORY",
 
   STORE_NAME: "exampleStore",
 };
