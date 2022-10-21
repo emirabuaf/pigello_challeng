@@ -1,20 +1,22 @@
 import constants from "./constants";
 
 const INITIAL_STATE = {
-  count: 0,
-  lastUpdated: null,
+  solarList: [],
+  error: false,
 };
 
 const storeExampleReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case constants.INCREASE_COUNT: {
+    case constants.FETCH_SOLAR_DATA:
       return {
-        count: state.count + 1,
-        lastUpdated: payload.lastUpdated,
-      };
-    }
+        ...state, solarList: payload.data
+      }
+    case constants.SHOW_ERROR:
+      return {
+        error: true
+      }
     default:
       return state;
   }

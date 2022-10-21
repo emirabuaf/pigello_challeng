@@ -1,68 +1,44 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled, { ThemeProvider as SCTheme } from "styled-components";
 
 import {
   constants as exampleConstants,
-  increaseCount,
+  fetchSolarData
 } from "./store/storeExample";
 import theme from "./theme";
 
+import Card from "./components/Card"
+import { CardWrapper } from "./components/styles/Card.styled";
+import GlobalStyles from "./components/styles/Global";
+
+
 function App() {
   const dispatch = useDispatch();
-  const count = useSelector(
-    (state) => state[exampleConstants.STORE_NAME].count
-  );
-  const lastUpdated = useSelector(
-    (state) => state[exampleConstants.STORE_NAME].lastUpdated
-  );
 
-  const onIncrease = () => {
-    dispatch(increaseCount());
-  };
+  const solarData = useSelector((state) => state[exampleConstants.STORE_NAME].solarList.bodies)
+  const error = useSelector((state) => state[exampleConstants.STORE_NAME].error)
+
+  useEffect(() => {
+    dispatch(fetchSolarData())
+  }, [dispatch])
+
+
 
   return (
     <SCTheme theme={theme}>
-      <div className="App">
-        <ExampleText> Redux example count: {count}</ExampleText>
-        <br />
-        <ExampleSmallText>
-          Last updated: {lastUpdated || "Never..."}
-        </ExampleSmallText>
-        <br />
-        <ExampleButton style={{ marginTop: 12 }} onClick={onIncrease}>
-          Click to increase
-        </ExampleButton>
-      </div>
+      <>
+        <GlobalStyles />
+        {error ? <div>Something went wrong!!!</div> : (
+          <CardWrapper>
+            {solarData && solarData.map((item) => (
+              <Card item={item} key={item.id} />
+            ))}
+          </CardWrapper>
+        )}
+      </>
     </SCTheme>
   );
 }
-
-const ExampleText = styled.div`
-  color: ${({ theme }) => theme.colors.blue};
-  font-size: ${({ theme }) => theme.fontSizes.headerSmall};
-`;
-
-const ExampleSmallText = styled.div`
-  color: ${({ theme }) => theme.colors.purple};
-  font-size: ${({ theme }) => theme.fontSizes.headerXSmall};
-`;
-
-const ExampleButton = styled.button`
-  display: inline-block;
-  border: none;
-  padding: 1rem 2rem;
-  margin: 0;
-  text-decoration: none;
-  background: ${({ theme }) => theme.colors.blue};
-  color: #ffffff;
-  font-family: sans-serif;
-  font-size: 1rem;
-  cursor: pointer;
-  text-align: center;
-  transition: background 250ms ease-in-out, transform 150ms ease;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  border-radius: 12px;
-`;
 
 export default App;

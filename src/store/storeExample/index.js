@@ -1,6 +1,6 @@
 import constants from "./constants";
 import reducer from "./reducer";
 
-import { increaseCount } from "./actions";
+import { fetchSolarData } from "./actions";
 
-export { constants, reducer, increaseCount };
+export { constants, reducer, fetchSolarData };
