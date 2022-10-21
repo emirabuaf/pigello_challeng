@@ -9,8 +9,8 @@ const SelectComponent = ({ list }) => {
  const dispatch = useDispatch();
  const [value, setValue] = useState("")
 
- const options = list && list.map((item) => item.bodyType);
- const filteredOptions = options && options.filter((bodyType, index) => options.indexOf(bodyType) === index)
+ const options = list.map((item) => item.bodyType);
+ const filteredOptions = options.filter((bodyType, index) => options.indexOf(bodyType) === index)
 
  const handleCategoryChange = (e) => {
   setValue(e.target.value)

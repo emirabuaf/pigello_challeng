@@ -8,6 +8,5 @@ display: flex;
  max-width: 765px;
  padding: 10px;
  width: 100%;
- margin-left: 20px;
  cursor: pointer;
 `

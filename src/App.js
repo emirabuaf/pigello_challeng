@@ -20,7 +20,7 @@ function App() {
   const solarData = useSelector((state) => state[exampleConstants.STORE_NAME].solarList)
   const error = useSelector((state) => state[exampleConstants.STORE_NAME].error)
   const selectedCategory = useSelector((state) => state[exampleConstants.STORE_NAME].selectedCategory)
-  const [list, setList] = useState(solarData)
+  const [list, setList] = useState(sessionStorage.getItem("list") == null ? solarData : JSON.parse(sessionStorage.getItem("list")))
   const [sortOrder, setSortOrder] = useState('');
 
 
@@ -30,7 +30,11 @@ function App() {
 
 
   useEffect(() => {
-    setList(solarData)
+    if (sessionStorage.getItem("list") == null) {
+      setList(solarData)
+    } else {
+      return JSON.parse(sessionStorage.getItem("list"))
+    }
   }, [solarData]);
 
 
@@ -46,11 +50,21 @@ function App() {
   }
 
 
+
+
+  const addItem = (state) => {
+    console.log(state)
+    let newList = [...list]
+    newList.push(state)
+    setList(newList)
+    sessionStorage.setItem("list", JSON.stringify(newList))
+  }
+
   return (
     <SCTheme theme={theme}>
       <>
         <GlobalStyles />
-        <Header handleSort={handleSort} list={list} />
+        <Header handleSort={handleSort} list={list} addItem={addItem} sortOrder={sortOrder} />
         {error ? <div>Something went wrong!!!</div> : (
           <CardList list={list} selectedCategory={selectedCategory} />
         )}
