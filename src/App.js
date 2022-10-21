@@ -53,7 +53,6 @@ function App() {
 
 
   const addItem = (state) => {
-    console.log(state)
     let newList = [...list]
     newList.push(state)
     setList(newList)
